@@ -1,0 +1,17 @@
+<% if @vision %>
+  <img alt="<%= @vision.url %>" src="<%= @vision.url %>" class="vision_image">
+  <ul>
+    <% @vision.vision_tags.each do |tag| %>
+      <li><%= "#{tag.name} (#{tag.confidence})" %></li>
+    <% end %>
+  </ul>
+<% end %>
+
+<%= link_to "新規作成", :controller => "vision", :action => "index" %>
+
+<style>
+.vision_image{
+  width: 300px;
+}
+</style>
+
