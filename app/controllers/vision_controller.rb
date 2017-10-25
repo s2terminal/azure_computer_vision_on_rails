@@ -35,12 +35,56 @@ class VisionController < ApplicationController
         vision_tag.save
       }
 
+      # 翻訳のアクセストークン取得
+      uri = URI('https://api.cognitive.microsoft.com/sts/v1.0/issueToken')
+      http = Net::HTTP::Post.new(uri.request_uri)
+      http['Content-Type'] = 'application/json'
+      http['Accept'] = 'application/jwt'
+      http['Ocp-Apim-Subscription-Key'] = Rails.application.secrets.azure_translator_text_api_key
+      response = Net::HTTP.start(uri.host, uri.port, :use_ssl => uri.scheme == 'https') do |client|
+        client.request(http)
+      end
+      token = response.body
+
+      # 翻訳
+      require 'rexml/document'
+      uri = URI('https://api.microsofttranslator.com/V2/Http.svc/Translate')
+      @vision.vision_tags.each{|tag|
+        uri.query = URI.encode_www_form({
+          'appid' => 'Bearer ' + token,
+          'text' => tag.name,
+          'to' => 'ja'
+        })
+        http = Net::HTTP::Get.new(uri.request_uri)
+        http['Accept'] = 'application/xml'
+        response = Net::HTTP.start(uri.host, uri.port, :use_ssl => uri.scheme == 'https') do |client|
+          client.request(http)
+        end
+        raise response.body if response.code != "200"
+        doc = REXML::Document.new(response.body)
+        tag.translated_name = doc.elements.first.text
+        tag.save
+      }
+
+
       @vision.save
       redirect_to :action => "show", :id => @vision.id
+    end
+
+    @visions = Vision.last(5)
+
+    respond_to do |format|
+      format.html
+      format.json { render json: @visions }
     end
   end
 
   def show
     @vision = Vision.find(params[:id])
+
+    respond_to do |format|
+      format.html
+      format.json { render json: @vision.to_json(include: :vision_tags) }
+    end
   end
 end

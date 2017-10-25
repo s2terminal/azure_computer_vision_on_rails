@@ -10,14 +10,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170218161252) do
+ActiveRecord::Schema.define(version: 20171025153053) do
 
   create_table "vision_tags", force: :cascade do |t|
     t.integer  "vision_id"
     t.string   "name"
     t.float    "confidence"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+    t.string   "translated_name"
     t.index ["name", "confidence"], name: "index_vision_tags_on_name_and_confidence"
     t.index ["vision_id"], name: "index_vision_tags_on_vision_id"
   end

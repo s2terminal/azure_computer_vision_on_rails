@@ -4,3 +4,19 @@
   </div>
   <input type=submit>
 <% end %>
+
+
+<ul>
+<% @visions.each do |vision| %>
+  <li>
+  <a href="/vision/show/<%= vision.id %>"><img alt="" src="<%= vision.url %>" class="vision_image"></a>
+  </li>
+<% end %>
+</ul>
+
+<style>
+.vision_image{
+  width: 200px;
+}
+</style>
+

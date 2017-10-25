@@ -11,6 +11,7 @@
 // about supported directives.
 //
 //= require jquery
-//= require jquery_ujs
+//= require bootstrap-sass
+//= require vue/dist/vue.min.js
 //= require turbolinks
 //= require_tree .

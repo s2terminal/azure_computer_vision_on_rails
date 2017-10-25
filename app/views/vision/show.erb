@@ -1,11 +1,24 @@
-<% if @vision %>
-  <img alt="<%= @vision.url %>" src="<%= @vision.url %>" class="vision_image">
-  <ul>
-    <% @vision.vision_tags.each do |tag| %>
-      <li><%= "#{tag.name} (#{tag.confidence})" %></li>
-    <% end %>
-  </ul>
-<% end %>
+<div id="app">
+  <button v-on:click="back">前へ</button>
+  ID:{{ vision.id }}
+  <button v-on:click="next">次へ</button>
+  <div>
+    <img v-bind:alt="vision.url" v-bind:src="vision.url" class="vision_image">
+    <div>
+      English Tags:<input size=50 v-model="vision.vision_tags.map(function(tag){ return '#'+tag.name; }).join(' ')">
+    </div>
+    <div>
+      Japanese Tags:<input size=50 v-model="vision.vision_tags.map(function(tag){ return '#'+tag.translated_name; }).join(' ')">
+    </div>
+    Detail:
+    <ul>
+      <li v-for="tag in vision.vision_tags">
+        {{ tag.name }}
+        {{ Math.round(tag.confidence * 10000) / 100 }}%
+      </li>
+    </ul>
+  </div>
+</div>
 
 <%= link_to "新規作成", :controller => "vision", :action => "index" %>
 
@@ -15,3 +28,23 @@
 }
 </style>
 
+<script>
+var id = <%= @vision.id %>;
+var request = window.superagent;
+var app = new Vue({
+  el: '#app',
+  data: {vision: {id:"",url:"",vision_tags:[]}},
+  methods: {
+    next: function (event) { update(++id); },
+    back: function (event) { update(--id); }
+  }
+});
+var update = function(image_id) {
+  $.ajax({
+    url: "/vision/show/"+image_id+".json"
+  }).done(function(res) {
+    app.vision = res;
+  });
+};
+update(id);
+</script>

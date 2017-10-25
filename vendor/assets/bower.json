@@ -1,0 +1,12 @@
+{
+  "name": "dsl-generated-dependencies",
+  "dependencies": {
+    "bootstrap-sass": "latest",
+    "fontawesome": "latest",
+    "vue": "latest",
+    "superagent": "latest",
+    "browserify": "latest"
+  },
+  "resolutions": {
+  }
+}
