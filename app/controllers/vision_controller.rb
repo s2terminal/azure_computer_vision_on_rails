@@ -1,4 +1,6 @@
 class VisionController < ApplicationController
+  before_filter :basic
+
   def index
     upload_file = params[:image]
     if upload_file != nil
@@ -85,6 +87,14 @@ class VisionController < ApplicationController
     respond_to do |format|
       format.html
       format.json { render json: @vision.to_json(include: :vision_tags) }
+    end
+  end
+
+
+  private
+  def basic
+    authenticate_or_request_with_http_basic do |user, pass|
+      user == Rails.application.secrets.basic_auth_user && pass == Rails.application.secrets.basic_auth_pass
     end
   end
 end
