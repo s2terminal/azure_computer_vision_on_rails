@@ -21,6 +21,8 @@
 .byebug_history
 
 config/secrets.yml
+config/initializers/secret_token.rb
+config/master.key
 vendor/bundle
 public/uploads
 
