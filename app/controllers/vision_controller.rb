@@ -1,5 +1,5 @@
 class VisionController < ApplicationController
-  before_filter :basic
+  before_action :basic
 
   def index
     upload_file = params[:image]
