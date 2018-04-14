@@ -28,6 +28,12 @@ local:
 #   storage_access_key: <%= Rails.application.credentials.dig(:azure_storage, :storage_access_key) %>
 #   container: your_container_name
 
+microsoft:
+  service: AzureStorage
+  storage_account_name: <%= Rails.application.secrets.azure_storage_account_name %>
+  storage_access_key:   <%= Rails.application.secrets.azure_storage_access_key %>
+  container: "vision-image-container"
+
 # mirror:
 #   service: Mirror
 #   primary: local
