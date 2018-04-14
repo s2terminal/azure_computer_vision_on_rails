@@ -5,7 +5,7 @@
       ID:{{ vision.id }}
       <button v-on:click="update(++id)">次へ</button>
     </nav>
-    <img v-bind:alt="vision.url" v-bind:src="vision.url" class="vision_image">
+    <img v-bind:alt="vision.image_url" v-bind:src="vision.image_url" class="vision_image">
     <label>English Tags</label>
     <div class="input-group">
       <input class="form-control" id='english_tags' v-model="vision.vision_tags.map(function(tag){ return '#'+tag.name.replace(/\s+/g,''); }).join(' ')">
@@ -24,7 +24,7 @@
         {{ Math.round(tag.confidence * 10000) / 100 }}%
       </li>
     </ul>
-    <%= link_to "新規作成", :controller => "vision", :action => "index" %>
+    <%= link_to "新規作成", :controller => "visions", :action => "index" %>
   </div>
 </div>
 
@@ -40,7 +40,7 @@ var id = <%= @vision.id %>;
 var request = window.superagent;
 var app = new Vue({
   el: '#app',
-  data: {vision: {id:"",url:"",vision_tags:[]}},
+  data: {vision: {id:"",image_url:"",vision_tags:[]}},
   methods: {
     copy: function (id) {
       var elem = document.getElementById(id);
@@ -53,7 +53,7 @@ var app = new Vue({
 var update = function(image_id) {
   app.vision.url = '';
   $.ajax({
-    url: "/vision/show/"+image_id+".json"
+    url: "/visions/"+image_id+".json"
   }).done(function(res) {
     app.vision = res;
   });

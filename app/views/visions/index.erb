@@ -1,0 +1,23 @@
+
+<%= render 'form', vision: @vision %>
+
+<ul>
+<% @visions.each do |vision| %>
+  <li>
+  <a href="<%= url_for vision %>">
+    <% if vision.image.attached? %>
+      <%= image_tag vision.image.variant(resize: "100x100") if vision.image.attached? %>
+    <% else %>
+      <img alt="" src="<%= vision.url %>" class="vision_image">
+    <% end %>
+  </a>
+  </li>
+<% end %>
+</ul>
+
+<style>
+.vision_image{
+  width: 200px;
+}
+</style>
+

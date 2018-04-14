@@ -61,3 +61,4 @@ gem 'multipart-post'
 
 # Rails5.2
 gem 'bootsnap', require: false
+gem 'mini_magick'
