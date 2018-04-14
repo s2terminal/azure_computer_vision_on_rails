@@ -3,7 +3,8 @@ class Vision < ApplicationRecord
   has_one_attached :image
 
   def image_url
-    self.image.attached? ? Rails.application.routes.url_helpers.url_for(self.image) : self.url
+    return self.url if self.url.present?
+    return self.image.service_url if self.image.attached?
   end
 
   def generate_tags

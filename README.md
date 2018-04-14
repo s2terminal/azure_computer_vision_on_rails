@@ -6,8 +6,9 @@
 
 ```
 $ bundle install --path vendor/bundle
-$ rake db:migrate
-$ rails s
+$ cp config/secrets.yml.sample config/secrets.yml
+$ bundle exec rails db:migrate
+$ bundle exec rails s
 ```
 
 ## 詳細
