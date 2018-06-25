@@ -1,0 +1,61 @@
+{
+  // See https://go.microsoft.com/fwlink/?LinkId=733558
+  // for the documentation about the tasks.json format
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "bundle install",
+      "type": "shell",
+      "command": "bundle install --path vendor/bundle"
+    },
+    {
+      "label": "rails db:migrate",
+      "type": "shell",
+      "command": "bundle exec rails db:migrate",
+      "dependsOn": [
+        "bundle install"
+      ],
+    },
+    {
+      "label": "npm install",
+      "type": "shell",
+      "command": "bundle exec rake bower:install",
+    },
+    {
+      "label": "rails server start",
+      "type": "shell",
+      "command": "bundle exec rails server --daemon",
+      "dependsOn": [
+        "rails server stop",
+        "rails db:migrate",
+        "npm install"
+      ],
+    },
+    {
+      "label": "rails server stop",
+      "type": "shell",
+      // "command": "cat ./tmp/pids/server.pid | xargs --no-run-if-empty kill -9 || true"
+      "command": "test -e ./tmp/pids/server.pid && kill -9 `cat ./tmp/pids/server.pid` || true"
+    },
+    {
+      "label": "rails start",
+      "type": "shell",
+      "command": "open http://localhost:3000",
+      "windows": {
+        "command": "explorer.exe http://localhost:3000"
+      },
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared"
+      },
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "dependsOn": [
+        "rails server start"
+      ],
+      "problemMatcher": []
+    }
+  ]
+}
