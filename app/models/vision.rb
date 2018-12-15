@@ -3,8 +3,7 @@ class Vision < ApplicationRecord
   has_one_attached :image
 
   def image_url
-    return self.url if self.url.present?
-    return self.image.service_url if self.image.attached?
+    return self.image.service_url
   end
 
   def generate_tags
