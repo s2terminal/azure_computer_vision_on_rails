@@ -8,6 +8,8 @@
 $ bundle install --path vendor/bundle
 $ cp config/secrets.yml.sample config/secrets.yml
 $ bundle exec rails db:migrate
+$ npm install --save-dev
+$ bundle exec rake bower:install
 $ bundle exec rails s
 ```
 

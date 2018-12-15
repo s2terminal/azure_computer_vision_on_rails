@@ -1,0 +1,27 @@
+{
+  "name": "az_vision",
+  "version": "1.0.0",
+  "description": "[Microsoft Cognitive Services](https://www.microsoft.com/cognitive-services/en-us/)の[Computer Vision API](https://www.microsoft.com/cognitive-services/en-us/computer-vision-api)をRuby on Railsで叩く",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib",
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/s2terminal/azure_computer_vision_on_rails.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/s2terminal/azure_computer_vision_on_rails/issues"
+  },
+  "homepage": "https://github.com/s2terminal/azure_computer_vision_on_rails#readme",
+  "devDependencies": {
+    "bower": "^1.8.4"
+  }
+}
