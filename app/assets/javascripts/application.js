@@ -10,8 +10,7 @@
 // Read Sprockets README (https://github.com/rails/sprockets#sprockets-directives) for details
 // about supported directives.
 //
-//= require jquery
-//= require bootstrap-sass
-//= require vue/dist/vue.min.js
-//= require turbolinks
 //= require_tree .
+const $ = require('jquery');
+console.log('webpack test');
+$('*').hide();
