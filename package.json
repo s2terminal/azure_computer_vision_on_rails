@@ -8,7 +8,7 @@
     "test": "test"
   },
   "scripts": {
-    "webpack:watch": "webpack --watch",
+    "webpack:watch": "webpack --watch"
   },
   "repository": {
     "type": "git",
@@ -27,7 +27,6 @@
     "@webpack-cli/init": "^0.1.2",
     "babel-loader": "^8.0.4",
     "babel-plugin-syntax-dynamic-import": "^6.18.0",
-    "bower": "^1.8.4",
     "css-loader": "^1.0.0",
     "node-sass": "^4.10.0",
     "sass-loader": "^7.1.0",
