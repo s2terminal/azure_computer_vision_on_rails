@@ -14,6 +14,12 @@ $ bundle exec rake bower:install
 $ bundle exec rails s
 ```
 
+### webpack版(仮)
+
+```
+$ npx webpack
+```
+
 ## 詳細
 
 
