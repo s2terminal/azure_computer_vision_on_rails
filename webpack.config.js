@@ -9,35 +9,23 @@ module.exports = {
 			{
 				include: [path.resolve(__dirname, 'app', 'assets', 'javascripts')],
 				loader: 'babel-loader',
-
 				options: {
 					plugins: ['syntax-dynamic-import'],
-
 					presets: [
 						[
 							'@babel/preset-env',
-							{
-								modules: false
-							}
+							{ modules: false }
 						]
 					]
 				},
-
 				test: /\.js$/
 			},
 			{
 				test: /\.(scss|css)$/,
-
 				use: [
-					{
-						loader: 'style-loader'
-					},
-					{
-						loader: 'css-loader'
-					},
-					{
-						loader: 'sass-loader'
-					}
+					{ loader: 'style-loader' },
+					{ loader: 'css-loader' },
+					{ loader: 'sass-loader' }
 				]
 			}
 		]
@@ -47,11 +35,12 @@ module.exports = {
 
 	output: {
 		// filename: '[name].[chunkhash].js',
-		filename: 'bundle.js',
+		filename: '[name].js',
 		path: path.resolve(__dirname, 'public')
 	},
 
-	mode: 'production',
+	mode: 'development',
+	devtool: '#inline-source-map',
 
 	optimization: {
 		splitChunks: {
@@ -61,11 +50,16 @@ module.exports = {
 					test: /[\\/]node_modules[\\/]/
 				}
 			},
-
 			chunks: 'async',
 			minChunks: 1,
 			minSize: 30000,
 			name: true
 		}
-	}
+	},
+
+  resolve: {
+    alias: {
+      'vue$': 'vue/dist/vue.esm.js' // 'vue/dist/vue.common.js' webpack 1 ?
+    }
+  }
 };

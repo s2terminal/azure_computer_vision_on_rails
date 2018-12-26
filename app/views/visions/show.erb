@@ -1,9 +1,9 @@
-<div id="app" class="row">
+<div id="app" class="row" data-image-id="<%= @vision.id %>">
   <div class="col-xs-10 col-xs-offset-1 col-sm-6 col-md-4">
     <nav>
-      <button v-on:click="update(--id)">前へ</button>
+      <%= link_to "前へ", :controller => "visions", :action => "show", :id => @vision.id - 1 %>
       ID:{{ vision.id }}
-      <button v-on:click="update(++id)">次へ</button>
+      <%= link_to "次へ", :controller => "visions", :action => "show", :id => @vision.id + 1 %>
     </nav>
     <img v-bind:alt="vision.image_url" v-bind:src="vision.image_url" class="vision_image">
     <label>English Tags</label>
@@ -34,29 +34,3 @@
   width: 100%;
 }
 </style>
-
-<script>
-var id = <%= @vision.id %>;
-var request = window.superagent;
-var app = new Vue({
-  el: '#app',
-  data: {vision: {id:"",image_url:"",vision_tags:[]}},
-  methods: {
-    copy: function (id) {
-      var elem = document.getElementById(id);
-      elem.focus();
-      elem.setSelectionRange(0, elem.value.length);
-      document.execCommand('copy');
-    }
-  }
-});
-var update = function(image_id) {
-  app.vision.url = '';
-  $.ajax({
-    url: "/visions/"+image_id+".json"
-  }).done(function(res) {
-    app.vision = res;
-  });
-};
-update(id);
-</script>
