@@ -24,4 +24,5 @@ $.ajax({
 });
 
 // styles
-require('../stylesheets/application.scss');
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap';
