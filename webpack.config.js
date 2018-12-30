@@ -2,6 +2,7 @@ const webpack = require('webpack');
 const path = require('path');
 
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
+const ManifestPlugin = require('webpack-manifest-plugin');
 
 module.exports = {
   module: {
@@ -34,9 +35,8 @@ module.exports = {
   entry: './app/assets/javascripts/application.js',
 
   output: {
-    // filename: '[name].[chunkhash].js',
-    filename: '[name].js',
-    path: path.resolve(__dirname, 'public')
+    filename: '[name].[chunkhash].js',
+    path: path.resolve(__dirname, 'public', 'packs')
   },
 
   mode: 'development',
@@ -61,5 +61,13 @@ module.exports = {
     alias: {
       'vue$': 'vue/dist/vue.esm.js' // 'vue/dist/vue.common.js' webpack 1 ?
     }
-  }
+  },
+
+  plugins: [
+    new ManifestPlugin({
+      fileName: 'manifest.json',
+      publicPath: '/packs/',
+      writeToFileEmit: true,
+    }),
+  ]
 };
