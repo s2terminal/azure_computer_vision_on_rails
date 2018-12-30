@@ -22,3 +22,6 @@ $.ajax({
 }).done(function(res) {
   app.vision = res;
 });
+
+// styles
+require('../stylesheets/application.scss');
