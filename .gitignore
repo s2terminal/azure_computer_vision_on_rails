@@ -29,4 +29,4 @@ public/uploads
 storage/
 
 node_modules/
-public/main.js
+public/packs/
