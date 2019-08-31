@@ -2,28 +2,12 @@
   <div class="col-xs-10 col-xs-offset-1 col-sm-6 col-md-4">
     <nav>
       <a href="<%= url_for(:controller => "visions", :action => "show", :id => @vision.id - 1) %>" class="btn btn-primary">前へ</a>
-      ID:{{ vision.id }}
+      ID:<%= @vision.id %>
       <a href="<%= url_for(:controller => "visions", :action => "show", :id => @vision.id + 1) %>" class="btn btn-primary">次へ</a>
     </nav>
-    <img v-bind:alt="vision.image_url" v-bind:src="vision.image_url" class="vision_image">
-    <label>English Tags</label>
-    <div class="input-group">
-      <input class="form-control" id='english_tags' v-model="vision.vision_tags.map(function(tag){ return '#'+tag.name.replace(/\s+/g,''); }).join(' ')">
-      <div class="btn btn-primary" v-on:click="copy('english_tags')">copy</div>
-    </div>
-    <label>Japanese Tags</label>
-    <div class="input-group">
-      <input class="form-control" id='japanese_tags' v-model="vision.vision_tags.map(function(tag){ return '#'+tag.translated_name.replace(/\s+/g,''); }).join(' ')">
-      <div class="btn btn-primary" v-on:click="copy('japanese_tags')">copy</div>
-    </div>
-    <label>Detail</label>
-    <ul>
-      <li v-for="tag in vision.vision_tags">
-        {{ tag.name }}
-        ({{ tag.translated_name }})
-        {{ Math.round(tag.confidence * 10000) / 100 }}%
-      </li>
-    </ul>
+
+    <div id="react"></div>
+
     <a href="<%= url_for(:controller => "visions", :action => "index") %>" class="btn btn-primary">新規作成</a>
   </div>
 </div>
