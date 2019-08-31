@@ -1,5 +1,3 @@
-console.log("hello, ts");
-
 import React from 'react';
 import ReactDOM from 'react-dom';
 import $ from 'jquery';
@@ -8,12 +6,7 @@ import $ from 'jquery';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap';
 
-const Hello = props => (
-  <div>Hello {props.name}!</div>
-);
-
 const id = $("#app").data("image-id");
-
 
 const copy = (id: string) :void => {
   var elem = document.getElementById(id);
@@ -53,12 +46,4 @@ $.ajax({
     </>
   );
   ReactDOM.render(element,document.getElementById('react'));
-});
-
-
-document.addEventListener('DOMContentLoaded', () => {
-  ReactDOM.render(
-    <Hello name="React" />,
-    document.body.appendChild(document.createElement('div')),
-  );
 });
