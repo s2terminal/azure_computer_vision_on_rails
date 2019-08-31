@@ -37,7 +37,7 @@ module.exports = {
     ]
   },
 
-  entry: './app/assets/javascripts/application.ts',
+  entry: './app/assets/javascripts/application.tsx',
 
   output: {
     filename: '[name].[chunkhash].js',
