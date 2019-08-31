@@ -1,5 +1,5 @@
 class VisionsController < ApplicationController
-  before_action :basic
+  before_action :auth
 
   def index
     @vision = Vision.new
@@ -30,11 +30,6 @@ class VisionsController < ApplicationController
   end
 
   private
-  def basic
-    authenticate_or_request_with_http_basic do |user, pass|
-      user == Rails.application.secrets.basic_auth_user && pass == Rails.application.secrets.basic_auth_pass
-    end
-  end
 
   def vision_params
     params.require(:vision).permit(:image)

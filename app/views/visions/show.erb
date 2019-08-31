@@ -1,4 +1,4 @@
-<div id="app" class="row" data-image-id="<%= @vision.id %>">
+<div id="app" class="row" data-image-id="<%= @vision.id %>" data-csrf-token="<%= session[:_csrf_token] %>">
   <div class="col-xs-10 col-xs-offset-1 col-sm-6 col-md-4">
     <nav>
       <a href="<%= url_for(:controller => "visions", :action => "show", :id => @vision.id - 1) %>" class="btn btn-primary">前へ</a>
