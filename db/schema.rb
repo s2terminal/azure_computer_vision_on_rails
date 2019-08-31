@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_04_13_233636) do
+ActiveRecord::Schema.define(version: 2019_08_31_101850) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -40,6 +40,7 @@ ActiveRecord::Schema.define(version: 2018_04_13_233636) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "translated_name"
+    t.boolean "active", default: true
     t.index ["name", "confidence"], name: "index_vision_tags_on_name_and_confidence"
     t.index ["vision_id"], name: "index_vision_tags_on_vision_id"
   end
