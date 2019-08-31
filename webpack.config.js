@@ -22,6 +22,11 @@ module.exports = {
         test: /\.js$/
       },
       {
+        include: [path.resolve(__dirname, 'app', 'assets', 'javascripts')],
+        loader: 'ts-loader',
+        test: /\.tsx?$/
+      },
+      {
         test: /\.(scss|css)$/,
         use: [
           { loader: 'style-loader' },
@@ -32,7 +37,7 @@ module.exports = {
     ]
   },
 
-  entry: './app/assets/javascripts/application.js',
+  entry: './app/assets/javascripts/application.ts',
 
   output: {
     filename: '[name].[chunkhash].js',
@@ -60,7 +65,8 @@ module.exports = {
   resolve: {
     alias: {
       'vue$': 'vue/dist/vue.esm.js' // 'vue/dist/vue.common.js' webpack 1 ?
-    }
+    },
+    extensions: [".ts", ".tsx", ".js"]
   },
 
   plugins: [
