@@ -9,6 +9,7 @@ ImageMagickが必要
 $ bundle install --path vendor/bundle
 $ cp config/secrets.yml.sample config/secrets.yml
 $ bundle exec rails db:migrate
+$ bundle exec rake db:seed
 $ npm install --save-dev
 $ npx webpack
 $ bundle exec rails s
