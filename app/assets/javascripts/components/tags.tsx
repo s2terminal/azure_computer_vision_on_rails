@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import $ from 'jquery';
 
 const MAX_TAGS = 30;
+const INTERCEPT = 2.1826742;
+const AVERAGE_COEFFICIENT = 1.7384449825127788;
 
 const copy = (id: string) :void => {
   var elem = document.getElementById(id);
@@ -9,6 +11,10 @@ const copy = (id: string) :void => {
   elem.setSelectionRange(0, elem.value.length);
   document.execCommand('copy');
 };
+
+const per = (rate: number) :number => {
+  return rate * 10000 / 100;
+}
 
 type TagProps = {
   id: number;
@@ -24,6 +30,10 @@ type VisionTag =  {
   translated_name: string;
   confidence: number;
   active: boolean;
+  predicted_tag?: PredictedTag;
+}
+type PredictedTag = {
+  coefficients: number;
 }
 
 type ActiveTags = { [id: number]: boolean; };
@@ -52,12 +62,19 @@ export default (props: TagProps) => {
     return defaultActiveTags;
   });
 
-  const count = Object.keys(activeTags).reduce((acc, id) => acc += (activeTags[id] ? 1 : 0), 0);
+  const activeTagCount = Object.keys(activeTags).reduce((acc, id) => acc += (activeTags[id] ? 1 : 0), 0);
+  const predictedLikeCount = Object.keys(vision.vision_tags).reduce((acc, index) => {
+    const visionTag = vision.vision_tags[index];
+    if (!activeTags[visionTag.id]) { return acc; }
+    if (!visionTag.predicted_tag) { return acc + AVERAGE_COEFFICIENT; }
+    return acc += visionTag.predicted_tag.coefficients;
+  }, INTERCEPT);
 
   return (
     <>
       <img alt={vision.image_url} src={vision.image_url} className="vision_image" />
-      <p>{count}/{MAX_TAGS} tags</p>
+      <p>Tag: {activeTagCount}/{MAX_TAGS}</p>
+      <p>予想いいね数: <span style={{fontSize: 'x-large'}}>{ Math.round(predictedLikeCount)}</span></p>
       <label>English Tags</label>
       <div className="input-group">
         <input onChange={()=>{}} className="form-control" id='english_tags' value={vision.vision_tags.filter((tag) => (activeTags[tag.id])).map((tag) => ( '#'+tag.name.replace(/\s+/g,'') )).join(' ')} />
@@ -90,7 +107,8 @@ export default (props: TagProps) => {
                 />
                 { tag.name }
                 ({ tag.translated_name })
-                { Math.round(tag.confidence * 10000) / 100 }%
+                { Math.round(per(tag.confidence)) }%
+                ({ tag.predicted_tag ? Math.round(tag.predicted_tag.coefficients) : '?' } likes)
               </label>
             </li>);
         })}

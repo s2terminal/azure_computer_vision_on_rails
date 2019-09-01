@@ -12,11 +12,11 @@ class VisionsController < ApplicationController
   end
 
   def show
-    @vision = Vision.find(params[:id])
+    @vision = Vision.includes({vision_tags: :predicted_tag}).find(params[:id])
 
     respond_to do |format|
       format.html
-      format.json { render json: @vision.to_json(include: :vision_tags, methods: :image_url) }
+      format.json { render json: @vision.to_json(include: {vision_tags: {include: :predicted_tag}}, methods: :image_url) }
     end
   end
 
