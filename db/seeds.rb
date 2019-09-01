@@ -5,3 +5,13 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+
+require "csv"
+
+PredictedTag.delete_all
+CSV.foreach('tmp/seed/predicted.csv', headers: true) do |row|
+  PredictedTag.create(
+    name: row['Name'],
+    coefficients: row['Coefficients']
+  )
+end
